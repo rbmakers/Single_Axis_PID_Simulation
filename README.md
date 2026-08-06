@@ -1,5 +1,10 @@
 
-這份模擬程式是一個基於網頁（HTML5 Canvas）的**單軸 PID 控制與反應頻率實驗台**[cite: 1]。以下為您使用 LaTeX 數學式詳細梳理該模擬程式背後的物理模型、離散 PID 控制器架構以及數位控制的時間同步機制：
+<img width="1093" height="594" alt="螢幕錄影 2026年八月06日 10時03分01秒" src="https://github.com/user-attachments/assets/59a6349d-5fe4-4d5d-a007-f7fb5eac061a" />
+
+
+
+
+這份模擬程式是一個基於網頁（HTML5 Canvas）的**單軸 PID 控制與反應頻率實驗台**。以下數學式詳細梳理該模擬程式背後的物理模型、離散 PID 控制器架構以及數位控制的時間同步機制：
 
 ---
 
@@ -10,9 +15,9 @@
 $$J \alpha = \tau_{\text{total}}$$
 
 其中：
-* $J$ 為**轉動慣量**（單位：$\text{kg}\cdot\text{m}^2$），程式中預設設為 $J = 0.025$[cite: 1]。
-* $\alpha = \frac{d\omega}{dt}$ 為角加速度（單位：$\text{rad}/\text{s}^2$）。
-* $\omega$ 為當前的**角速度**（單位：$\text{rad}/\text{s}$）。
+* $J$ 為**轉動慣量**（單位： $$\text{kg}\cdot\text{m}^2$$ ），程式中預設設為 $J = 0.025$。
+* $\alpha = \frac{d\omega}{dt}$ 為角加速度（單位： $$\text{rad}/\text{s}^2$$ ）。
+* $\omega$ 為當前的**角速度**（單位： $$\text{rad}/\text{s}$$ ）。
 * 角度 $\theta$ 的變化率即為角速度：
   $$\frac{d\theta}{dt} = \omega$$
 
@@ -21,7 +26,7 @@ $$J \alpha = \tau_{\text{total}}$$
 
 $$\tau_{\text{total}} = \tau_{\text{control}} - b \omega$$
 
-* $b$ 為**自然阻尼係數**（程式中預設 `base_b = 0.005`）[cite: 1]。
+* $b$ 為**自然阻尼係數**（程式中預設 `base_b = 0.005`）。
 
 ---
 
@@ -62,9 +67,9 @@ $$\tau_{\text{total}} = \tau_{\text{control}} - b \omega$$
   $$\text{accumulator} \leftarrow \text{accumulator} + \Delta t$$
 * 當累積時間大於或等於離散控制週期時（即 $\text{accumulator} \ge \frac{1}{f_{\text{control}}}$）：
   * 觸發一次上述的**離散 PID 核心運算**。
-  * 累積器扣除一個週期：$\text{accumulator} \leftarrow \text{accumulator} - \frac{1}{f_{\text{control}}}$。
+  * 累積器扣除一個週期： $$\text{accumulator} \leftarrow \text{accumulator} - \frac{1}{f_{\text{control}}}$$ 。
 * 在每一個動畫畫格（Animation Frame）中，物理世界則以高頻率的 $\Delta t$ 進行歐拉積分更新（Euler Integration）：
   $$\omega^{(n+1)} = \omega^{(n)} + \left(\frac{\tau_{\text{control}} - b \omega^{(n)}}{J}\right) \Delta t$$
   $$\theta^{(n+1)} = \theta^{(n)} + \omega^{(n)} \Delta t$$
 
-這樣的數學與程式架構，能真實呈現當**控制反應頻率（$f_{\text{control}}$）**過低時，因控制更新延遲所造成的系統震盪與發散現象[cite: 1]。
+這樣的數學與程式架構，能真實呈現當**控制反應頻率（ $$f_{\text{control}}$$ ）**過低時，因控制更新延遲所造成的系統震盪與發散現象[cite: 1]。
