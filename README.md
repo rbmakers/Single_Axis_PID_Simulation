@@ -32,7 +32,7 @@ $$\tau_{\text{total}} = \tau_{\text{control}} - b \omega$$
 
 ### 二、 離散 PID 控制器數學模型
 
-在數位控制系統中（如模擬 RP2350 微控制器的執行緒）[cite: 1]，PID 計算是以固定的控制週期 $T_s = \frac{1}{f_{\text{control}}}$ 進行。
+在數位控制系統中（如模擬 RP2350 微控制器的執行緒），PID 計算是以固定的控制週期 $T_s = \frac{1}{f_{\text{control}}}$ 進行。
 
 1. **誤差計算（Error）：**
    設目標角度為 $\theta_{\text{target}}$（由度數轉換為弳度），當前角度為 $\theta$，則離散時間點 $k$ 的誤差 $e[k]$ 為：
@@ -40,7 +40,7 @@ $$\tau_{\text{total}} = \tau_{\text{control}} - b \omega$$
 
 2. **比例項（Proportional, $P$）：**
    $$P[k] = K_p \cdot e[k]$$
-   * $K_p$ 相當於彈簧剛度[cite: 1]。
+   * $K_p$ 相當於彈簧剛度。
 
 3. **積分項（Integral, $I$）：**
    採用數值積分（矩形法），並具有防飽和機制（Anti-windup，限制在 $[-2.0, 2.0]$ 之間）：
@@ -72,4 +72,4 @@ $$\tau_{\text{total}} = \tau_{\text{control}} - b \omega$$
   $$\omega^{(n+1)} = \omega^{(n)} + \left(\frac{\tau_{\text{control}} - b \omega^{(n)}}{J}\right) \Delta t$$
   $$\theta^{(n+1)} = \theta^{(n)} + \omega^{(n)} \Delta t$$
 
-這樣的數學與程式架構，能真實呈現當**控制反應頻率（ $$f_{\text{control}}$$ ）**過低時，因控制更新延遲所造成的系統震盪與發散現象[cite: 1]。
+這樣的數學與程式架構，能真實呈現當**控制反應頻率（ $$f_{\text{control}}$$ ）**過低時，因控制更新延遲所造成的系統震盪與發散現象。
